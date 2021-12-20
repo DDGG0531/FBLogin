@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1>hi, <%=data.displayName%></h1>
+    <button onclick="FB.logout(()=>{console.log('logout')})">FB logout</button>
+  </body>
+
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: "4754696727917638",
+        cookie: true,
+        xfbml: true,
+        version: "v12.0",
+      });
+
+      FB.AppEvents.logPageView();
+
+      FB.getLoginStatus(function (response) {
+        console.log("getLoginStatus");
+        if (response.status === "connected") {
+          var accessToken = response.authResponse.accessToken;
+          console.log("accessToken", accessToken);
+        }
+      });
+    };
+
+    (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
+  </script>
+</html>
